@@ -8,6 +8,6 @@ public class GradeCalculator extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.main); adf
     }
 }

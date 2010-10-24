@@ -50,6 +50,10 @@ public class GradeCalculator extends Activity {
 //        	
 //        });
 //      
+        
+        
+        
+        
         GridView gridview = (GridView) findViewById(R.id.gridview);
        
         
@@ -64,9 +68,9 @@ public class GradeCalculator extends Activity {
         	                                          // that displays a
         	                                          // text view
         	    cursor, // Give the cursor to the list adapter
-        	    new String[] {Database.NAME}, // Map the NAME column in the
+        	    new String[] {Database.NAME,Database.YEAR}, // Map the NAME column in the
         	                                         // people database to...
-        	    new int[] {R.id.text1}); 
+        	    new int[] {R.id.text1 , R.id.text2}); 
         gridview.setAdapter(adapter2);
      
        

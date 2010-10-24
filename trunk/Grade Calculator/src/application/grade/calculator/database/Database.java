@@ -8,10 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	
 	//Exercise Database columns
-	public static final String CLASSES_TABLE = "grade";
+	public static final String CLASSES_TABLE = "classes";
 	public static final String _ID ="_id";	//int
 	public static final String NAME = "name";	//text
 	//public static final String DESCRIPTION = "description";	//text

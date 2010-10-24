@@ -1,6 +1,6 @@
 package application.grade.calculator;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,12 +9,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import application.grade.calculator.database.Database;
 
-public class GradeCalculator extends ListActivity {
+public class GradeCalculator extends Activity {
     /** Called when the activity is first created. */
 	
 	Button add;
@@ -50,6 +50,8 @@ public class GradeCalculator extends ListActivity {
 //        	
 //        });
 //      
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+       
         
         Database classes = new Database(this);
         
@@ -58,19 +60,19 @@ public class GradeCalculator extends ListActivity {
 		startManagingCursor(cursor);
 		
         SimpleCursorAdapter adapter2 = new SimpleCursorAdapter(this,
-        	    android.R.layout.simple_spinner_item, // Use a template
+        	    R.layout.listview, // Use a template
         	                                          // that displays a
         	                                          // text view
         	    cursor, // Give the cursor to the list adapter
         	    new String[] {Database.NAME}, // Map the NAME column in the
         	                                         // people database to...
-        	    new int[] {android.R.id.text1}); 
-        setListAdapter(adapter2);
+        	    new int[] {R.id.text1}); 
+        gridview.setAdapter(adapter2);
      
-        ListView lv = getListView();
-        lv.setTextFilterEnabled(true);
+       
+        gridview.setTextFilterEnabled(true);
 
-        lv.setOnItemClickListener(new OnItemClickListener() {
+        gridview.setOnItemClickListener(new OnItemClickListener() {
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             // When clicked, show a toast with the TextView text    
         	  	Toast.makeText(GradeCalculator.this, "Made it to +"+position, Toast.LENGTH_SHORT).show();

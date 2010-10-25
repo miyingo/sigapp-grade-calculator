@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	
 	//Exercise Database columns
 	public static final String CLASSES_TABLE = "classes";
@@ -40,10 +40,11 @@ public class Database extends SQLiteOpenHelper {
 	
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DatabaseCreateString);
-		addClass("CS180",db);
-		addClass("PHYS172",db);
-		addClass("PSY200",db);
-		addClass("CS240",db);
+		addClass("CS180",db , 1);
+		addClass("PHYS172",db, 2);
+		addClass("PSY200",db, 1);
+		addClass("CS240",db , 3);
+		addClass("CS180",db , 1);
 	}
 
 	@Override
@@ -52,12 +53,12 @@ public class Database extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	public void addClass(String name, SQLiteDatabase db){
+	public void addClass(String name, SQLiteDatabase db, int semester){
 	
 		ContentValues values = new ContentValues();
 		values.put(NAME, name);
 		values.put(TOTAL_GRADE, 77);
-		values.put(SEMESTER, 1);
+		values.put(SEMESTER, semester);
 		values.put(YEAR, 2010);
 		db.insert(CLASSES_TABLE, null, values);
 		

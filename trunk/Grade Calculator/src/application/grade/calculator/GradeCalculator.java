@@ -25,31 +25,6 @@ public class GradeCalculator extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-//        
-//        add = (Button)findViewById(R.id.Button01);
-//        class1 = (EditText)findViewById(R.id.EditText01);
-//        button = (Button)findViewById(R.id.Button);
-//        
-//        button.setOnClickListener(new OnClickListener(){
-//
-//        	public void onClick(View v) {
-//        		
-//        		Intent i = new Intent(getBaseContext(),NewSubject.class);
-//        		startActivity(i);
-//        		
-//			}
-//        	
-//        });
-//        
-//        add.setOnClickListener(new OnClickListener(){
-//
-//        	public void onClick(View v) {
-//			
-//			add.setText(class1.getText().toString());	
-//			}
-//        	
-//        });
-//      
         
         GridView gridview = (GridView) findViewById(R.id.gridview);
        
@@ -57,7 +32,7 @@ public class GradeCalculator extends Activity {
         Database classes = new Database(this);
         
 		SQLiteDatabase db = classes.getWritableDatabase();
-        Cursor cursor = db.query(Database.CLASSES_TABLE, null, Database.YEAR+" like 2010 AND "+Database.NAME+" like 'CS180' AND "+Database.SEMESTER+" like 1", null, null, null, null);
+        Cursor cursor = db.query(Database.CLASSES_TABLE, new String[] {Database._ID,Database.NAME,Database.YEAR, Database.SEMESTER}, Database.YEAR+" like 2010 AND "+Database.NAME+" like 'CS180' AND "+Database.SEMESTER+" like 1", null, null, null, null);
         startManagingCursor(cursor);
 		
         SimpleCursorAdapter adapter2 = new SimpleCursorAdapter(this,

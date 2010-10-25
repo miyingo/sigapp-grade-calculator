@@ -51,17 +51,14 @@ public class GradeCalculator extends Activity {
 //        });
 //      
         
-        
-        
-        
         GridView gridview = (GridView) findViewById(R.id.gridview);
        
         
         Database classes = new Database(this);
         
 		SQLiteDatabase db = classes.getWritableDatabase();
-        Cursor cursor = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
-		startManagingCursor(cursor);
+        Cursor cursor = db.query(Database.CLASSES_TABLE, null, Database.YEAR+" like 2010 AND "+Database.NAME+" like 'CS180' AND "+Database.SEMESTER+" like 1", null, null, null, null);
+        startManagingCursor(cursor);
 		
         SimpleCursorAdapter adapter2 = new SimpleCursorAdapter(this,
         	    R.layout.listview, // Use a template

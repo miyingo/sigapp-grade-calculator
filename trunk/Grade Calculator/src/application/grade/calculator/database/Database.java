@@ -1,9 +1,14 @@
 package application.grade.calculator.database;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.BaseAdapter;
+import android.widget.SimpleCursorAdapter;
+import application.grade.calculator.R;
 
 
 public class Database extends SQLiteOpenHelper {
@@ -31,10 +36,14 @@ public class Database extends SQLiteOpenHelper {
 	//Record
 	
 	public Context ctx;
+	public SQLiteDatabase db;
+	public Activity activity;
 	
-	public Database(Context context ){
+	public Database(Context context,Activity activity ){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		ctx=context;
+		db = getWritableDatabase();
+		this.activity=activity;
 	}
 
 	
@@ -62,6 +71,21 @@ public class Database extends SQLiteOpenHelper {
 		values.put(YEAR, 2010);
 		db.insert(CLASSES_TABLE, null, values);
 		
+	}
+	
+	public BaseAdapter getClasses(){
+		
+        Cursor cursor = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
+        activity.startManagingCursor(cursor);
+		SimpleCursorAdapter adapter2 = new SimpleCursorAdapter(ctx,
+        	    R.layout.listview, // Use a template
+        	                                          // that displays a
+        	                                          // text view
+        	    cursor, // Give the cursor to the list adapter
+        	    new String[] {Database.NAME,Database.YEAR}, // Map the NAME column in the
+        	                                         // people database to...
+        	    new int[] {R.id.text1 , R.id.text2}); 
+		return adapter2;
 	}
 	
 

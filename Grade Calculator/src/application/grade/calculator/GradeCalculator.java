@@ -1,14 +1,20 @@
 package application.grade.calculator;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 import application.grade.calculator.database.Database;
 
 public class GradeCalculator extends Activity {
@@ -22,7 +28,31 @@ public class GradeCalculator extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+//        
+//        add = (Button)findViewById(R.id.Button01);
+//        class1 = (EditText)findViewById(R.id.EditText01);
+//        button = (Button)findViewById(R.id.Button);
+//        
+//        button.setOnClickListener(new OnClickListener(){
+//
+//        	public void onClick(View v) {
+//        		
+//        		Intent i = new Intent(getBaseContext(),NewSubject.class);
+//        		startActivity(i);
+//        		
+//			}
+//        	
+//        });
+//        
+//        add.setOnClickListener(new OnClickListener(){
+//
+//        	public void onClick(View v) {
+//			
+//			add.setText(class1.getText().toString());	
+//			}
+//        	
+//        });
+//              
         GridView gridview = (GridView) findViewById(R.id.gridview);
         
         Database classes = new Database(this,this);
@@ -52,6 +82,36 @@ public class GradeCalculator extends Activity {
           }
         });
         
-        
+
     }
+    
+       
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        // This is our one standard application action -- inserting a
+        // new note into the list.
+        menu.add(0, 1, 0, R.string.app_name)
+                .setShortcut('3', 'a')
+                .setIcon(android.R.drawable.ic_menu_add);
+
+        // Generate any additional actions that can be performed on the
+        // overall list.  In a normal install, there are no additional
+        // actions found here, but this allows other applications to extend
+        // our menu with their own actions.
+        Intent i = new Intent(getBaseContext(),DialogAddClass.class);
+        startActivity(i);
+        
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+        case 1: Intent i = new Intent(getBaseContext(),DialogAddClass.class);
+        startActivity(i);
+        
+        }
+        return true;
+    }
+    
 }

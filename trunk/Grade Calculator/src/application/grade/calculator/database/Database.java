@@ -47,6 +47,7 @@ public class Database extends SQLiteOpenHelper {
 	}
 
 	
+	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DatabaseCreateString);
 		addClass("CS180",db , 1);

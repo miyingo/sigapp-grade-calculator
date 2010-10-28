@@ -99,8 +99,7 @@ public class GradeCalculator extends Activity {
         // overall list.  In a normal install, there are no additional
         // actions found here, but this allows other applications to extend
         // our menu with their own actions.
-        Intent i = new Intent(getBaseContext(),DialogAddClass.class);
-        startActivity(i);
+
         
         return true;
     }

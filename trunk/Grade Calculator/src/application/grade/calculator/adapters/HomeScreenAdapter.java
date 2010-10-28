@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import application.grade.calculator.R;
 
 public class HomeScreenAdapter extends BaseAdapter {
@@ -35,9 +36,10 @@ public class HomeScreenAdapter extends BaseAdapter {
 	}
 
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
-
+		ImageView image = (ImageView) view.findViewById(R.id.ImageView01);
+		image.setImageResource(R.drawable.books);
 		
-		return null;
+		return image;
 	}
 
 }

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+import application.grade.calculator.adapters.HomeScreenAdapter;
 import application.grade.calculator.database.Database;
 
 public class GradeCalculator extends Activity {
@@ -70,7 +71,7 @@ public class GradeCalculator extends Activity {
 //        	    new String[] {Database.NAME,Database.YEAR}, // Map the NAME column in the
 //        	                                         // people database to...
 //        	    new int[] {R.id.text1 , R.id.text2}); 
-        gridview.setAdapter(classes.getClasses());
+        gridview.setAdapter(classes.getClassesAdapter());
         
        
         gridview.setTextFilterEnabled(true);

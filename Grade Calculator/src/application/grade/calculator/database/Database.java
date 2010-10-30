@@ -75,7 +75,7 @@ public class Database extends SQLiteOpenHelper {
 		
 	}
 	
-	public BaseAdapter getClasses(){
+	public BaseAdapter getClassesAdapter(){
 		
         Cursor cursor = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
         activity.startManagingCursor(cursor);
@@ -89,6 +89,7 @@ public class Database extends SQLiteOpenHelper {
         	    new int[] {R.id.text1 , R.id.text2}); 
 		return adapter2;
 	}
+	
 	
 
 }

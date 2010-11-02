@@ -21,6 +21,7 @@ import application.grade.calculator.database.Database;
 public class GradeCalculator extends Activity {
     /** Called when the activity is first created. */
 //	
+	static final int AddClassIntent = 1;
 	Button add;
 	EditText class1;
 	Button button;
@@ -78,8 +79,9 @@ public class GradeCalculator extends Activity {
 
         gridview.setOnItemClickListener(new OnItemClickListener() {
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // When clicked, show a toast with the TextView text    
         	  	Toast.makeText(GradeCalculator.this, "Made it to +"+position, Toast.LENGTH_SHORT).show();
+        	  	Intent i = new Intent(getBaseContext(),ClassProfile.class);
+                startActivity(i);
           }
         });
         
@@ -92,7 +94,7 @@ public class GradeCalculator extends Activity {
 
         // This is our one standard application action -- inserting a
         // new note into the list.
-        menu.add(0, 1, 0, R.string.app_name)
+        menu.add(0, 1, 0, "Add Class")
                 .setShortcut('3', 'a')
                 .setIcon(android.R.drawable.ic_menu_add);
 

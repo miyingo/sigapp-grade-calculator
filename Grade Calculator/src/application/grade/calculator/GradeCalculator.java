@@ -20,7 +20,7 @@ import application.grade.calculator.database.Database;
 
 public class GradeCalculator extends Activity {
     /** Called when the activity is first created. */
-	
+//	
 	Button add;
 	EditText class1;
 	Button button;

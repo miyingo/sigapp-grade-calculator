@@ -21,10 +21,11 @@ public class ClassProfile extends ExpandableListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        int class_id = getIntent().getIntExtra(GradeCalculator.CLASS_ID, 0);
         // Set up our adapter
         Database database = new Database(this,this);
         SQLiteDatabase db = database.getWritableDatabase();
-        Cursor cur = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
+        Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" like "+class_id, null, null, null, null);
         startManagingCursor(cur);
         mAdapter = new MyExpandableListAdapter(cur);
         setListAdapter(mAdapter);

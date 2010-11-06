@@ -1,5 +1,6 @@
 package application.grade.calculator;
 
+import android.app.Activity;
 import android.app.ExpandableListActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,18 +17,15 @@ import application.grade.calculator.database.Database;
 public class ClassProfile extends ExpandableListActivity {
 
     ExpandableListAdapter mAdapter;
-
-    @Override
+    
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         int class_id = getIntent().getIntExtra(GradeCalculator.CLASS_ID, 0);
         // Set up our adapter
-        Database database = new Database(this,this);
-        SQLiteDatabase db = database.getWritableDatabase();
-        Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" like "+class_id, null, null, null, null);
-        startManagingCursor(cur);
-        mAdapter = new MyExpandableListAdapter(cur);
+
+        mAdapter = new MyExpandableListAdapter(this,class_id);
         setListAdapter(mAdapter);
         registerForContextMenu(getExpandableListView());
     }
@@ -69,8 +67,19 @@ public class ClassProfile extends ExpandableListActivity {
     public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     	
     	private Cursor cur;
+    	private SQLiteDatabase db;
+    	private Activity act;
+    	private Cursor gradeCursor;
+    	private int class_id;
     	
-    	MyExpandableListAdapter(Cursor cur){
+    	MyExpandableListAdapter(Activity act, int class_id){
+            Database database = new Database(act,act);
+            this.db = database.getWritableDatabase();
+            Cursor cur = db.query(Database.COMPONENTS_TABLE, null, null, null, null, null, null);
+            this.act = act;
+            this.class_id=class_id;
+            act.startManagingCursor(cur);
+            //act.startManagingCursor(gradeCursor);
     		this.cur = cur;
     		
     	}
@@ -83,9 +92,13 @@ public class ClassProfile extends ExpandableListActivity {
                 { "Fluffy", "Snuggles" },
                 { "Goldy", "Bubbles" }
         };
-
         public Object getChild(int groupPosition, int childPosition) {
-            return children[groupPosition][childPosition];
+        	cur.moveToPosition(groupPosition);
+        	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, null, null, null, null, null);
+        	act.startManagingCursor(gradeCursor);
+        	gradeCursor.moveToPosition(childPosition);
+            return gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME));
         }
 
         public long getChildId(int groupPosition, int childPosition) {
@@ -93,7 +106,11 @@ public class ClassProfile extends ExpandableListActivity {
         }
 
         public int getChildrenCount(int groupPosition) {
-            return children[groupPosition].length;
+        	cur.moveToPosition(groupPosition);
+        	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, null, null, null, null, null);
+        	act.startManagingCursor(gradeCursor);
+            return gradeCursor.getCount();
         }
 
         public TextView getGenericView() {
@@ -113,6 +130,7 @@ public class ClassProfile extends ExpandableListActivity {
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                 View convertView, ViewGroup parent) {
             TextView textView = getGenericView();
+            
             textView.setText(getChild(groupPosition, childPosition).toString());
             return textView;
         }
@@ -133,6 +151,7 @@ public class ClassProfile extends ExpandableListActivity {
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
                 ViewGroup parent) {
             TextView textView = getGenericView();
+            cur.moveToPosition(groupPosition);
             textView.setText((String)getGroup(groupPosition));
             return textView;
         }

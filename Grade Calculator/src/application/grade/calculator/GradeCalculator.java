@@ -5,16 +5,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import application.grade.calculator.adapters.HomeScreenAdapter;
 import application.grade.calculator.database.Database;
 
@@ -30,6 +30,7 @@ public class GradeCalculator extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+       
 //        
 //        add = (Button)findViewById(R.id.Button01);
 //        class1 = (EditText)findViewById(R.id.EditText01);
@@ -59,9 +60,9 @@ public class GradeCalculator extends Activity {
         
         Database classes = new Database(this,this);
 //        
-//		SQLiteDatabase db = classes.getWritableDatabase();
-//        Cursor cursor = db.query(Database.CLASSES_TABLE, new String[] {Database._ID,Database.NAME,Database.YEAR, Database.SEMESTER}, Database.YEAR+" like 2010 AND "+Database.NAME+" like 'CS180' AND "+Database.SEMESTER+" like 1", null, null, null, null);
-//        startManagingCursor(cursor);
+		SQLiteDatabase db = classes.getWritableDatabase();
+       Cursor cursor = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
+       startManagingCursor(cursor);
 		//db.close();
 		//classes.close();
 //        SimpleCursorAdapter adapter2 = new SimpleCursorAdapter(this,
@@ -72,7 +73,10 @@ public class GradeCalculator extends Activity {
 //        	    new String[] {Database.NAME,Database.YEAR}, // Map the NAME column in the
 //        	                                         // people database to...
 //        	    new int[] {R.id.text1 , R.id.text2}); 
-        gridview.setAdapter(classes.getClassesAdapter());
+       
+
+       
+        gridview.setAdapter(new HomeScreenAdapter(this,cursor));
         
        
         gridview.setTextFilterEnabled(true);

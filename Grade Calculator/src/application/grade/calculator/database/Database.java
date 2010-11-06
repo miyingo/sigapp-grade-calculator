@@ -13,7 +13,7 @@ import application.grade.calculator.R;
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 8;
+	private static final int DATABASE_VERSION = 9;
 	
 	//Classes Table Columns
 	public static final String CLASSES_TABLE = "classes";
@@ -46,7 +46,7 @@ public class Database extends SQLiteOpenHelper {
 	public static final String DatabaseCreateClassesString = "create table if not exists "+CLASSES_TABLE+" ("+_ID
 						+" integer primary key autoincrement, "+NAME
 						+" text not null, "
-						+PIC+" text, "
+						+PIC+" int, "
 						+TOTAL_GRADE+" text, "
 						+YEAR+" float, "+SEMESTER+" text);";
 	
@@ -81,11 +81,11 @@ public class Database extends SQLiteOpenHelper {
 		db.execSQL(DatabaseCreateClassesString);
 		db.execSQL(DatabaseCreateComponentsString);
 		db.execSQL(DatabaseCreateGradesString);
-		addClass("CS180",db , 1);
-		addClass("PHYS172",db, 2);
-		addClass("PSY200",db, 1);
-		addClass("CS240",db , 3);
-		addClass("CS180",db , 1);
+		addClass("CS180",db , 1,2);
+		addClass("PHYS172",db, 2,3);
+		addClass("PSY200",db, 1,1);
+		addClass("CS240",db , 3,4);
+		addClass("CS180",db , 1,2);
 		addComponents("HOMEWORK",db,77,89);
 		addComponents("Projects",db,73,83);
 		addGrade("Project1",db,73,82);
@@ -100,13 +100,14 @@ public class Database extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	public void addClass(String name, SQLiteDatabase db, int semester){
+	public void addClass(String name, SQLiteDatabase db, int semester, int pic){
 	
 		ContentValues values = new ContentValues();
 		values.put(NAME, name);
 		values.put(TOTAL_GRADE, 77);
 		values.put(SEMESTER, semester);
 		values.put(YEAR, 2010);
+		values.put(PIC, pic);
 		db.insert(CLASSES_TABLE, null, values);
 		
 	}

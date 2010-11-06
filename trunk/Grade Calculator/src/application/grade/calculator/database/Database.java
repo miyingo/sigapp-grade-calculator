@@ -13,7 +13,7 @@ import application.grade.calculator.R;
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 9;
+	private static final int DATABASE_VERSION = 1;
 	
 	//Classes Table Columns
 	public static final String CLASSES_TABLE = "classes";
@@ -57,7 +57,7 @@ public class Database extends SQLiteOpenHelper {
 						+TOTAL_GRADE_MADE+" float, "
 						+TOTAL_GRADE_OUT_OF+" float);";
 	
-	public static final String DatabaseCreateGradesString = "create table if not exists "+COMPONENTS_TABLE+" ("+_ID
+	public static final String DatabaseCreateGradesString = "create table if not exists "+GRADE_TABLE+" ("+_ID
 						+" integer primary key autoincrement, "
 						+NAME+" text not null, "
 						+COMPONENTS_ID+" float, "
@@ -87,6 +87,7 @@ public class Database extends SQLiteOpenHelper {
 		addClass("CS240",db , 3,4);
 		addClass("CS180",db , 1,2);
 		addComponents("HOMEWORK",db,77,89);
+		addComponents("Projects",db,73,83);
 		addComponents("Projects",db,73,83);
 		addGrade("Project1",db,73,82);
 		addGrade("Project2",db,73,83);

@@ -95,7 +95,7 @@ public class ClassProfile extends ExpandableListActivity {
         public Object getChild(int groupPosition, int childPosition) {
         	cur.moveToPosition(groupPosition);
         	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
-        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, null, null, null, null, null);
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" like "+id, null, null, null, null);
         	act.startManagingCursor(gradeCursor);
         	gradeCursor.moveToPosition(childPosition);
             return gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME));
@@ -108,7 +108,7 @@ public class ClassProfile extends ExpandableListActivity {
         public int getChildrenCount(int groupPosition) {
         	cur.moveToPosition(groupPosition);
         	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
-        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, null, null, null, null, null);
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" like "+id, null, null, null, null);
         	act.startManagingCursor(gradeCursor);
             return gradeCursor.getCount();
         }

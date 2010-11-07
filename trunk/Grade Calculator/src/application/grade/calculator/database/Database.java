@@ -13,7 +13,7 @@ import application.grade.calculator.R;
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 4;
 	
 	//Classes Table Columns
 	public static final String CLASSES_TABLE = "classes";
@@ -60,7 +60,7 @@ public class Database extends SQLiteOpenHelper {
 	public static final String DatabaseCreateGradesString = "create table if not exists "+GRADE_TABLE+" ("+_ID
 						+" integer primary key autoincrement, "
 						+NAME+" text not null, "
-						+COMPONENTS_ID+" float, "
+						+COMPONENTS_ID+" integer, "
 						+GRADE_MADE+" float, "
 						+GRADE_OUT_OF+" float);";
 	
@@ -89,8 +89,10 @@ public class Database extends SQLiteOpenHelper {
 		addComponents("HOMEWORK",db,77,89);
 		addComponents("Projects",db,73,83);
 		addComponents("Projects",db,73,83);
-		addGrade("Project1",db,73,82);
-		addGrade("Project2",db,73,83);
+		addGrade("Project1",db,73,82,1);
+		addGrade("Project2",db,73,83,2);
+		addGrade("Project3",db,73,83,0);
+		addGrade("Project4",db,73,83,3);
 
 
 	}
@@ -113,7 +115,7 @@ public class Database extends SQLiteOpenHelper {
 		
 	}
 	
-	public void addComponents(String name, SQLiteDatabase db, int grade_made, int grade_out){
+	public void addComponents(String name, SQLiteDatabase db, int grade_made, int grade_out ){
 		
 		ContentValues values = new ContentValues();
 		values.put(NAME, name);
@@ -124,11 +126,11 @@ public class Database extends SQLiteOpenHelper {
 		
 	}
 	
-	public void addGrade(String name, SQLiteDatabase db, int grade_made, int grade_out){
+	public void addGrade(String name, SQLiteDatabase db, int grade_made, int grade_out , int id){
 		
 		ContentValues values = new ContentValues();
 		values.put(NAME, name);
-		values.put(COMPONENTS_ID, 1);
+		values.put(COMPONENTS_ID, id);
 		values.put(GRADE_MADE, grade_made);
 		values.put(GRADE_OUT_OF, grade_out );
 		db.insert(GRADE_TABLE, null, values);

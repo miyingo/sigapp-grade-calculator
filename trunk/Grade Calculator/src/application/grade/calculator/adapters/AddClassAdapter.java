@@ -1,20 +1,18 @@
 package application.grade.calculator.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import application.grade.calculator.R;
 import application.grade.calculator.database.Database;
 
-public class HomeScreenAdapter extends BaseAdapter {
+public class AddClassAdapter extends BaseAdapter {
 
 	Activity ctx;
 	Cursor cursor;
@@ -22,13 +20,12 @@ public class HomeScreenAdapter extends BaseAdapter {
 	
 	int[] pic =  {R.drawable.books,R.drawable.felipecaparelli_gears_1, R.drawable.jean_victor_balin_book, R.drawable.johnny_automatic_roman_coliseum,R.drawable.organick_chemistry_set_9};
 	
-	public HomeScreenAdapter(Activity ctx,Cursor cursor) {
+	public AddClassAdapter(Activity ctx) {
 		this.ctx=ctx;
 		this.cursor = cursor;
 	}
 
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return cursor.getCount();
 	}
 

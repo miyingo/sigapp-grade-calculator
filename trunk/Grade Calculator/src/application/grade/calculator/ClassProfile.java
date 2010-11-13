@@ -3,6 +3,7 @@ package application.grade.calculator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -123,7 +124,7 @@ public class ClassProfile extends Activity {
         public Object getChild(int groupPosition, int childPosition) {
         	cur.moveToPosition(groupPosition);
         	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
-        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" like "+id, null, null, null, null);
         	act.startManagingCursor(gradeCursor);
         	gradeCursor.moveToPosition(childPosition);
             return gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME));
@@ -155,7 +156,7 @@ public class ClassProfile extends Activity {
             return textView;
         }
 
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+        public View getChildView(final int groupPosition, int childPosition, boolean isLastChild,
                 View convertView, ViewGroup parent) {
             TextView textView = getGenericView();
             
@@ -175,13 +176,47 @@ public class ClassProfile extends Activity {
 							dialog.setTitle("Add Grade");
 							dialog.setCancelable(true);
 							dialog.setContentView(R.layout.addgrade);
-							EditText text1 = (EditText)dialog.findViewById(R.id.EditText01);
-							EditText text2 = (EditText)dialog.findViewById(R.id.EditText02);
+							final EditText text1 = (EditText)dialog.findViewById(R.id.EditText01);
+							final EditText text2 = (EditText)dialog.findViewById(R.id.EditText02);
 							Button button = (Button)dialog.findViewById(R.id.Button01);
+							Button button1 = (Button)dialog.findViewById(R.id.Button02);
+							final TextView text3 = (TextView)dialog.findViewById(R.id.text);
+							
+							text3.setHint((String)getGroup(groupPosition));
+
 							
 							button.setOnClickListener(new OnClickListener(){
 								public void onClick(View v) {
+									Database data = new Database(ClassProfile.this,ClassProfile.this);
+									SQLiteDatabase db =  data.getWritableDatabase();
+									
+									Toast.makeText(ClassProfile.this, "made it to  with insert at "+6, Toast.LENGTH_LONG).show();
+
+									
+									double made;
+									double out_of;
+									try{
+										made=Double.valueOf(text1.getText().toString());
+										out_of=Double.valueOf(text2.getText().toString());
+									}catch(Exception e){
+										made=0;
+										out_of=0;
+									}
+									cur.moveToPosition(groupPosition);
+									ContentValues values = new ContentValues();
+									values.put(Database.NAME, (String)text3.getText());
+									values.put(Database.GRADE_MADE, made );
+									values.put(Database.GRADE_OUT_OF, out_of );
+									values.put(Database.COMPONENTS_ID,  cur.getInt(cur.getColumnIndex(Database.COMPONENTS_ID)));
+									int result = (int)db.insert(Database.GRADE_TABLE, null, values);
+									Toast.makeText(ClassProfile.this, "made it to  with insert at "+result, Toast.LENGTH_LONG).show();
 						    		notifyDataSetChanged();
+									dialog.dismiss();
+								}
+							});
+							
+							button.setOnClickListener(new OnClickListener(){
+								public void onClick(View v) {
 									dialog.dismiss();
 								}
 							});
@@ -216,6 +251,7 @@ public class ClassProfile extends Activity {
             TextView textView = getGenericView();
             cur.moveToPosition(groupPosition);
             textView.setText((String)getGroup(groupPosition));
+            textView.setTextSize(20f);
             return textView;
         }
 

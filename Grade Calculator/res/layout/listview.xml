@@ -4,6 +4,7 @@
 	android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#C58917"
     >
 <ImageView android:id="@+id/ImageView01" 
 	android:layout_width="wrap_content" 
@@ -19,12 +20,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="2dp"
-    android:textSize="20sp" />
+    android:textSize="20sp"
+    android:textColor="#000000" />
 <TextView 
 	android:id="@+id/text2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="2dp"
-    android:textSize="20sp" />
+    android:textSize="20sp"
+    android:textColor="#000000" />
   </LinearLayout>
 </LinearLayout>

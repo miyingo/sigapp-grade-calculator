@@ -1,32 +1,34 @@
 package application.grade.calculator.adapters;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
-import android.database.Cursor;
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.TextView;
 import application.grade.calculator.R;
-import application.grade.calculator.database.Database;
 
 public class AddClassAdapter extends BaseAdapter {
 
 	Activity ctx;
-	Cursor cursor;
 	View view;
+	ArrayList<String> name;
+	ArrayList<Integer> value;
 	
-	int[] pic =  {R.drawable.books,R.drawable.felipecaparelli_gears_1, R.drawable.jean_victor_balin_book, R.drawable.johnny_automatic_roman_coliseum,R.drawable.organick_chemistry_set_9};
-	
-	public AddClassAdapter(Activity ctx) {
+	public AddClassAdapter(Activity ctx, ArrayList<String> name, ArrayList<Integer> value) {
 		this.ctx=ctx;
-		this.cursor = cursor;
+		this.name = name;
+		this.value = value;
 	}
 
 	public int getCount() {
-		return cursor.getCount();
+		return name.size();
 	}
 
 	public Object getItem(int arg0) {
@@ -34,26 +36,65 @@ public class AddClassAdapter extends BaseAdapter {
 	}
 
 	public long getItemId(int arg0) {
-		return 0;
+		return arg0;
 	}
 
-	public View getView(int position, View arg1, ViewGroup parent) {
+	public View getView(final int position, View arg1, ViewGroup parent) {
 		//view.setLayoutParams(parent.getLayoutParams());
-		cursor.moveToPosition(position);
 		LayoutInflater inflater = (LayoutInflater)ctx.getLayoutInflater();
-		view = inflater.inflate(R.layout.listview, null);
-		ImageView image = (ImageView) view.findViewById(R.id.ImageView01);
-		TextView text1 = (TextView) view.findViewById(R.id.text1);
-		TextView text2 = (TextView) view.findViewById(R.id.text2);
-        //image.setLayoutParams(new GridView.LayoutParams(85, 85));
-		image.setImageResource(pic[cursor.getInt(cursor.getColumnIndex(Database.PIC))]);
-        image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        
-		text1.setText(cursor.getString(cursor.getColumnIndex(Database.NAME)));
-		text2.setText(cursor.getInt(cursor.getColumnIndex(Database.YEAR))+"");
-		//.setLayoutParams(new GridView.LayoutParams(85, 85));
+		view = inflater.inflate(R.layout.addclasslistview, null);
+		EditText text1 = (EditText) view.findViewById(R.id.text1);
+		EditText text2 = (EditText) view.findViewById(R.id.text2);
+		text1.setText(name.get(position));
+		text2.setText(value.get(position)+"");
+		
+		text1.addTextChangedListener(new TextWatcher(){
+
+			public void afterTextChanged(Editable s) {
+				name.set(position, s.toString());
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+			}
+
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		text2.addTextChangedListener(new TextWatcher(){
+
+			public void afterTextChanged(Editable s) {
+				int val;
+				try{
+					val=Integer.valueOf(s.toString());
+				}catch(Exception e){
+					val=0;
+				}
+				value.set(position,val);
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		
 		view.setBackgroundColor(Color.WHITE);
-		//view.setLayoutParams(parent.getLayoutParams());
 		return view;
 	}
 

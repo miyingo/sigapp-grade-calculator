@@ -55,7 +55,7 @@ public class HomeScreenAdapter extends BaseAdapter {
 		text1.setText(cursor.getString(cursor.getColumnIndex(Database.NAME)));
 		text2.setText(cursor.getInt(cursor.getColumnIndex(Database.YEAR))+"");
 		//.setLayoutParams(new GridView.LayoutParams(85, 85));
-		view.setBackgroundColor(Color.WHITE);
+		//view.setBackgroundColor(Color.WHITE);
 		//view.setLayoutParams(parent.getLayoutParams());
 		return view;
 	}

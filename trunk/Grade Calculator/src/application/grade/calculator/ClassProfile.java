@@ -121,13 +121,24 @@ public class ClassProfile extends Activity {
                 { "Fluffy", "Snuggles" },
                 { "Goldy", "Bubbles" }
         };
-        public Object getChild(int groupPosition, int childPosition) {
+        public View getChild(int groupPosition, int childPosition) {
         	cur.moveToPosition(groupPosition);
         	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
-        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" like "+id, null, null, null, null);
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
         	act.startManagingCursor(gradeCursor);
         	gradeCursor.moveToPosition(childPosition);
-            return gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME));
+        	
+    		LayoutInflater inflater = (LayoutInflater)act.getLayoutInflater();
+    		View view = inflater.inflate(R.layout.indivgradeview, null);
+    		TextView text = (TextView)view.findViewById(R.id.TextView03);
+    		TextView text1 = (TextView)view.findViewById(R.id.TextView01);
+    		TextView text2 = (TextView)view.findViewById(R.id.TextView02);
+        	
+    		text.setText(gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME)));
+    		text1.setText(gradeCursor.getString(gradeCursor.getColumnIndex(Database.GRADE_MADE)));
+    		text2.setText(gradeCursor.getString(gradeCursor.getColumnIndex(Database.GRADE_OUT_OF)));
+
+            return view;
         }
 
         public long getChildId(int groupPosition, int childPosition) {
@@ -161,10 +172,10 @@ public class ClassProfile extends Activity {
             TextView textView = getGenericView();
             
             if(childPosition==0){
-            	textView.setText("add grade");
+            	textView.setText("Add Grade");
         		LayoutInflater inflater = (LayoutInflater)act.getLayoutInflater();
         		View view = inflater.inflate(R.layout.addgradelistview, null);
-        		ImageView imageview = (ImageView) view.findViewById(R.id.ImageView01);
+        		ImageView imageview = (ImageView)view.findViewById(R.id.ImageView01);
         		
         		view.setOnClickListener(new OnClickListener(){
 
@@ -180,7 +191,7 @@ public class ClassProfile extends Activity {
 							final EditText text2 = (EditText)dialog.findViewById(R.id.EditText02);
 							Button button = (Button)dialog.findViewById(R.id.Button01);
 							Button button1 = (Button)dialog.findViewById(R.id.Button02);
-							final TextView text3 = (TextView)dialog.findViewById(R.id.text);
+							final EditText text3 = (EditText)dialog.findViewById(R.id.EditText04);
 							
 							text3.setHint((String)getGroup(groupPosition));
 
@@ -189,9 +200,6 @@ public class ClassProfile extends Activity {
 								public void onClick(View v) {
 									Database data = new Database(ClassProfile.this,ClassProfile.this);
 									SQLiteDatabase db =  data.getWritableDatabase();
-									
-									Toast.makeText(ClassProfile.this, "made it to  with insert at "+6, Toast.LENGTH_LONG).show();
-
 									
 									double made;
 									double out_of;
@@ -204,19 +212,20 @@ public class ClassProfile extends Activity {
 									}
 									cur.moveToPosition(groupPosition);
 									ContentValues values = new ContentValues();
-									values.put(Database.NAME, (String)text3.getText());
+									values.put(Database.NAME, text3.getText().toString());
 									values.put(Database.GRADE_MADE, made );
 									values.put(Database.GRADE_OUT_OF, out_of );
-									values.put(Database.COMPONENTS_ID,  cur.getInt(cur.getColumnIndex(Database.COMPONENTS_ID)));
+									values.put(Database.COMPONENTS_ID,  cur.getInt(cur.getColumnIndex(Database._ID)));
 									int result = (int)db.insert(Database.GRADE_TABLE, null, values);
-									Toast.makeText(ClassProfile.this, "made it to  with insert at "+result, Toast.LENGTH_LONG).show();
+									Toast.makeText(act, "made it to  with insert at "+result, Toast.LENGTH_LONG).show();
 						    		notifyDataSetChanged();
 									dialog.dismiss();
 								}
 							});
 							
-							button.setOnClickListener(new OnClickListener(){
+							button1.setOnClickListener(new OnClickListener(){
 								public void onClick(View v) {
+									Toast.makeText(act, "last cancel", Toast.LENGTH_LONG).show();
 									dialog.dismiss();
 								}
 							});
@@ -229,8 +238,8 @@ public class ClassProfile extends Activity {
             	return view;
             }
             
-            textView.setText(getChild(groupPosition, childPosition-1).toString());
-            return textView;
+            
+            return getChild(groupPosition, childPosition-1);
         }
 
         public Object getGroup(int groupPosition) {

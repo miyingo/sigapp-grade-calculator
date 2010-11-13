@@ -1,33 +1,62 @@
 package application.grade.calculator;
 
 import android.app.Activity;
-import android.app.ExpandableListActivity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import application.grade.calculator.database.Database;
 
-public class ClassProfile extends ExpandableListActivity {
+public class ClassProfile extends Activity {
 
+	ExpandableListView exlistview;
     ExpandableListAdapter mAdapter;
-    
+    int class_id;
+    String class_name;
+    int class_pic;
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        int class_id = getIntent().getIntExtra(GradeCalculator.CLASS_ID, 0);
+        setContentView(R.layout.classprofile);
+        
+        //Getting class name, pic, and grade to display, getting id to access database info on this class
+        Intent i = getIntent();
+        class_id = i.getIntExtra(GradeCalculator.CLASS_ID, 0);
+        class_name = i.getStringExtra(GradeCalculator.CLASS_NAME);
+        class_pic =  i.getIntExtra(GradeCalculator.CLASS_PIC, 0);
+        
+        //setup views
+        exlistview = (ExpandableListView)findViewById(R.id.ExpandableListView01);
+        
+        //Display class name
+        TextView text = (TextView)findViewById(R.id.TextView01);
+        text.setText(class_name);
+       
+        //Display class grade
+        TextView text1 = (TextView)findViewById(R.id.TextView03);
+        
+        
         // Set up our adapter
-
         mAdapter = new MyExpandableListAdapter(this,class_id);
-        setListAdapter(mAdapter);
-        registerForContextMenu(getExpandableListView());
+        exlistview.setAdapter(mAdapter);
+        registerForContextMenu(exlistview);
     }
 
     /*
@@ -75,13 +104,12 @@ public class ClassProfile extends ExpandableListActivity {
     	MyExpandableListAdapter(Activity act, int class_id){
             Database database = new Database(act,act);
             this.db = database.getWritableDatabase();
-            Cursor cur = db.query(Database.COMPONENTS_TABLE, null, null, null, null, null, null);
+            Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" = "+class_id, null, null, null, null);
             this.act = act;
             this.class_id=class_id;
             act.startManagingCursor(cur);
             //act.startManagingCursor(gradeCursor);
-    		this.cur = cur;
-    		
+    		this.cur = cur;    		
     	}
     	
         // Sample data set.  children[i] contains the children (String[]) for groups[i].
@@ -95,7 +123,7 @@ public class ClassProfile extends ExpandableListActivity {
         public Object getChild(int groupPosition, int childPosition) {
         	cur.moveToPosition(groupPosition);
         	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
-        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" like "+id, null, null, null, null);
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
         	act.startManagingCursor(gradeCursor);
         	gradeCursor.moveToPosition(childPosition);
             return gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME));
@@ -108,9 +136,9 @@ public class ClassProfile extends ExpandableListActivity {
         public int getChildrenCount(int groupPosition) {
         	cur.moveToPosition(groupPosition);
         	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
-        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" like "+id, null, null, null, null);
+        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
         	act.startManagingCursor(gradeCursor);
-            return gradeCursor.getCount();
+            return gradeCursor.getCount()+1;
         }
 
         public TextView getGenericView() {
@@ -131,7 +159,42 @@ public class ClassProfile extends ExpandableListActivity {
                 View convertView, ViewGroup parent) {
             TextView textView = getGenericView();
             
-            textView.setText(getChild(groupPosition, childPosition).toString());
+            if(childPosition==0){
+            	textView.setText("add grade");
+        		LayoutInflater inflater = (LayoutInflater)act.getLayoutInflater();
+        		View view = inflater.inflate(R.layout.addgradelistview, null);
+        		ImageView imageview = (ImageView) view.findViewById(R.id.ImageView01);
+        		
+        		view.setOnClickListener(new OnClickListener(){
+
+					public void onClick(View v) {
+						
+						Toast.makeText(act, "made it", Toast.LENGTH_SHORT).show();
+						
+						final Dialog dialog = new Dialog(ClassProfile.this);
+							dialog.setTitle("Add Grade");
+							dialog.setCancelable(true);
+							dialog.setContentView(R.layout.addgrade);
+							EditText text1 = (EditText)dialog.findViewById(R.id.EditText01);
+							EditText text2 = (EditText)dialog.findViewById(R.id.EditText02);
+							Button button = (Button)dialog.findViewById(R.id.Button01);
+							
+							button.setOnClickListener(new OnClickListener(){
+								public void onClick(View v) {
+						    		notifyDataSetChanged();
+									dialog.dismiss();
+								}
+							});
+
+							dialog.show();
+					}
+        			
+        		});
+        		
+            	return view;
+            }
+            
+            textView.setText(getChild(groupPosition, childPosition-1).toString());
             return textView;
         }
 

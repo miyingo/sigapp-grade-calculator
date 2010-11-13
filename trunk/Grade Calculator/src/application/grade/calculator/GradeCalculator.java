@@ -26,6 +26,10 @@ public class GradeCalculator extends Activity {
 	EditText class1;
 	Button button;
 	public static final String CLASS_ID = "class_id";
+	public static final String CLASS_NAME = "class_name";
+	public static final String CLASS_PIC = "class_pic";
+	public static final int AddClass = 0;
+    HomeScreenAdapter adapter;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +41,9 @@ public class GradeCalculator extends Activity {
         Database classes = new Database(this,this);       
 		SQLiteDatabase db = classes.getWritableDatabase();
        final Cursor cursor = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
-       startManagingCursor(cursor);       
-        gridview.setAdapter(new HomeScreenAdapter(this,cursor));
+       startManagingCursor(cursor); 
+       adapter = new HomeScreenAdapter(this,cursor);
+        gridview.setAdapter(adapter);
         
        
         gridview.setTextFilterEnabled(true);
@@ -49,6 +54,8 @@ public class GradeCalculator extends Activity {
         	  	Intent i = new Intent(getBaseContext(),ClassProfile.class);
         	  	cursor.moveToPosition(position);
         	  	i.putExtra(CLASS_ID, cursor.getInt(cursor.getColumnIndex(Database._ID)));
+        	  	i.putExtra(CLASS_NAME, cursor.getString(cursor.getColumnIndex(Database.NAME)));
+        	  	i.putExtra(CLASS_PIC, cursor.getInt(cursor.getColumnIndex(Database.PIC)));
                 startActivity(i);
           }
         });
@@ -56,8 +63,28 @@ public class GradeCalculator extends Activity {
 
     }
     
+    
+    
        
-    public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+	protected void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+
+
+
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		adapter.notifyDataSetChanged();
+	}
+
+
+
+
+	public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
         // This is our one standard application action -- inserting a
@@ -77,8 +104,8 @@ public class GradeCalculator extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-        case 1: Intent i = new Intent(getBaseContext(),DialogAddClass.class);
-        startActivity(i);
+        case 1: Intent i = new Intent(getBaseContext(),AddClassActivity.class);
+        startActivityForResult(i,  AddClass);
         
         }
         return true;

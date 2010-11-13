@@ -13,7 +13,7 @@ import application.grade.calculator.R;
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 6;
 	
 	//Classes Table Columns
 	public static final String CLASSES_TABLE = "classes";
@@ -81,25 +81,13 @@ public class Database extends SQLiteOpenHelper {
 		db.execSQL(DatabaseCreateClassesString);
 		db.execSQL(DatabaseCreateComponentsString);
 		db.execSQL(DatabaseCreateGradesString);
-		addClass("CS180",db , 1,2);
-		addClass("PHYS172",db, 2,3);
-		addClass("PSY200",db, 1,1);
-		addClass("CS240",db , 3,4);
-		addClass("CS180",db , 1,2);
-		addComponents("HOMEWORK",db,77,89);
-		addComponents("Projects",db,73,83);
-		addComponents("Projects",db,73,83);
-		addGrade("Project1",db,73,82,1);
-		addGrade("Project2",db,73,83,2);
-		addGrade("Project3",db,73,83,0);
-		addGrade("Project4",db,73,83,3);
-
-
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("drop table if exists "+CLASSES_TABLE);
+		db.execSQL("drop table if exists "+COMPONENTS_TABLE);
+		db.execSQL("drop table if exists "+GRADE_TABLE);
 		onCreate(db);
 	}
 	

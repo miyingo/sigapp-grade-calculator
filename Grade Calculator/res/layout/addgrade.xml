@@ -29,18 +29,18 @@
 	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
 
-		<LinearLayout android:layout_width="match_parent"
+		<!--<LinearLayout android:layout_width="match_parent"
 			android:layout_height="wrap_content" android:gravity="center_horizontal">
 
-			<Button android:text="Add" android:id="@+id/Button01"
+			--><Button android:text="Add" android:id="@+id/Button01"
 				android:layout_width="match_parent" android:layout_height="wrap_content"
 				android:layout_weight="1" />
 
 			<Button android:text="Cancel" android:id="@+id/Button02" android:layout_weight="1" 
 				android:layout_width="match_parent" android:layout_height="wrap_content" />
 
-		</LinearLayout>
+		<!--</LinearLayout>
 
-	</TableRow>
+	--></TableRow>
 
 </TableLayout>

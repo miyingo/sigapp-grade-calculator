@@ -20,7 +20,7 @@ public class Database extends SQLiteOpenHelper {
 	public static final String _ID ="_id";	//int
 	public static final String NAME = "name";	//text
 	//public static final String DESCRIPTION = "description";	//text
-	public static final String TOTAL_GRADE = "total_grade";	//int
+	public static final String TOTAL_GRADE = "total_grade";	//float
 	public static final String SEMESTER = "semester";	//text or int
 	public static final String YEAR = "year";	//int
 	public static final String PIC = "picture"; //int
@@ -32,6 +32,7 @@ public class Database extends SQLiteOpenHelper {
 	public static final String CLASS_ID = "class_id"; //int holds the class id that has this component
 	public static final String TOTAL_GRADE_MADE = "grade_made"; //double  holds grade made out of components from last update
 	public static final String TOTAL_GRADE_OUT_OF = "grade_out_of"; //double holds grade total out of components from last update
+	public static final String WEIGHT = "weight";
 	
 	//Grade Table Columns
 	public static final String GRADE_TABLE = "grades";
@@ -47,7 +48,7 @@ public class Database extends SQLiteOpenHelper {
 						+" integer primary key autoincrement, "+NAME
 						+" text not null, "
 						+PIC+" int, "
-						+TOTAL_GRADE+" text, "
+						+TOTAL_GRADE+" float, "
 						+YEAR+" float, "+SEMESTER+" text);";
 	
 	public static final String DatabaseCreateComponentsString = "create table if not exists "+COMPONENTS_TABLE+" ("+_ID
@@ -55,7 +56,8 @@ public class Database extends SQLiteOpenHelper {
 						+NAME+" text not null, "
 						+CLASS_ID+" float, "
 						+TOTAL_GRADE_MADE+" float, "
-						+TOTAL_GRADE_OUT_OF+" float);";
+						+TOTAL_GRADE_OUT_OF+" float, "
+						+WEIGHT+");";
 	
 	public static final String DatabaseCreateGradesString = "create table if not exists "+GRADE_TABLE+" ("+_ID
 						+" integer primary key autoincrement, "
@@ -125,6 +127,25 @@ public class Database extends SQLiteOpenHelper {
 		
 	}
 	
+	public void updateCourseGrades(int position){
+		
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" = "+position, null, null, null, null);
+		if(cur==null)
+			return ;
+		float toatl = 0;
+		for(int i = 0;i<cur.getCount();i++){
+		cur.moveToPosition(i);
+		float made = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE));
+		float out_of = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF));
+		float weight = cur.getFloat(cur.getColumnIndex(Database.WEIGHT));
+		}
+		ContentValues value = new ContentValues();
+		//do
+		db.update(Database.CLASSES_TABLE, value, Database._ID+" = "+position, null);
+		
+	}
+	
 	public BaseAdapter getClassesAdapter(){
 		
         Cursor cursor = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
@@ -139,6 +160,8 @@ public class Database extends SQLiteOpenHelper {
         	    new int[] {R.id.text1 , R.id.text2}); 
 		return adapter2;
 	}
+	
+	
 	
 	
 

@@ -13,7 +13,7 @@ import application.grade.calculator.R;
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 	
 	//Classes Table Columns
 	public static final String CLASSES_TABLE = "classes";
@@ -57,7 +57,7 @@ public class Database extends SQLiteOpenHelper {
 						+CLASS_ID+" float, "
 						+TOTAL_GRADE_MADE+" float, "
 						+TOTAL_GRADE_OUT_OF+" float, "
-						+WEIGHT+");";
+						+WEIGHT+" float);";
 	
 	public static final String DatabaseCreateGradesString = "create table if not exists "+GRADE_TABLE+" ("+_ID
 						+" integer primary key autoincrement, "
@@ -133,17 +133,38 @@ public class Database extends SQLiteOpenHelper {
 		Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" = "+position, null, null, null, null);
 		if(cur==null)
 			return ;
-		float toatl = 0;
+		float total = 0;
 		for(int i = 0;i<cur.getCount();i++){
 		cur.moveToPosition(i);
 		float made = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE));
 		float out_of = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF));
 		float weight = cur.getFloat(cur.getColumnIndex(Database.WEIGHT));
+		total = weight*(made/out_of);
 		}
 		ContentValues value = new ContentValues();
-		//do
+		value.put(Database.TOTAL_GRADE, total);
 		db.update(Database.CLASSES_TABLE, value, Database._ID+" = "+position, null);
+	}
+	
+	public void updateComponentGrades(int position){
 		
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor cur = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+position, null, null, null, null);
+		if(cur==null)
+			return ;
+		float total_made = 0;
+		float total_out_of = 0;
+		for(int i = 0;i<cur.getCount();i++){
+		cur.moveToPosition(i);
+		float made = cur.getFloat(cur.getColumnIndex(Database.GRADE_MADE));
+		float out_of = cur.getFloat(cur.getColumnIndex(Database.GRADE_OUT_OF));
+		total_made +=made;
+		total_out_of +=out_of;
+		}
+		ContentValues value = new ContentValues();
+		value.put(Database.TOTAL_GRADE_MADE,total_made);
+		value.put(Database.TOTAL_GRADE_OUT_OF, total_out_of);
+		db.update(Database.COMPONENTS_TABLE, value, Database._ID+" = "+position, null);
 	}
 	
 	public BaseAdapter getClassesAdapter(){

@@ -52,8 +52,7 @@ public class ClassProfile extends Activity {
        
         //Display class grade
         TextView text1 = (TextView)findViewById(R.id.TextView03);
-        
-        
+                
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(this,class_id);
         exlistview.setAdapter(mAdapter);
@@ -172,7 +171,7 @@ public class ClassProfile extends Activity {
             TextView textView = getGenericView();
             
             if(childPosition==0){
-            	textView.setText("Add Grade");
+
         		LayoutInflater inflater = (LayoutInflater)act.getLayoutInflater();
         		View view = inflater.inflate(R.layout.addgradelistview, null);
         		ImageView imageview = (ImageView)view.findViewById(R.id.ImageView01);
@@ -257,11 +256,17 @@ public class ClassProfile extends Activity {
 
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
                 ViewGroup parent) {
-            TextView textView = getGenericView();
+           // TextView textView = getGenericView();
             cur.moveToPosition(groupPosition);
-            textView.setText((String)getGroup(groupPosition));
-            textView.setTextSize(20f);
-            return textView;
+    		LayoutInflater inflater = (LayoutInflater)act.getLayoutInflater();
+    		View view = inflater.inflate(R.layout.groupview, null);
+    		TextView text = (TextView)view.findViewById(R.id.TextView01);     
+    		TextView text1 = (TextView)view.findViewById(R.id.TextView02);            
+            cur.moveToPosition(groupPosition);
+            
+            text.setText(cur.getString(cur.getColumnIndex(Database.NAME)));
+            text1.setText(cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE))+"/"+cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF)));
+            return view;
         }
 
         public boolean isChildSelectable(int groupPosition, int childPosition) {

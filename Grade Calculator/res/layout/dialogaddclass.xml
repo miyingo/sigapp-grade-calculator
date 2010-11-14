@@ -22,30 +22,30 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content">
 					<TextView android:id="@+id/TextView01"
 						android:layout_width="wrap_content" android:layout_height="wrap_content"
-						android:text="Name"></TextView>
+						android:text="@string/name"></TextView>
 					<EditText android:id="@+id/EditText01"
 						android:layout_height="wrap_content" android:layout_width="fill_parent"
-						android:hint="(e.g. CS240)" />
+						android:hint="@string/egClass" />
 
 				</TableRow>
 				<TableRow android:id="@+id/TableRow02"
 					android:layout_width="wrap_content" android:layout_height="wrap_content">
 					<TextView android:id="@+id/TextView02"
 						android:layout_width="wrap_content" android:layout_height="wrap_content"
-						android:text="Semester" />
+						android:text="@string/semester" />
 					<EditText android:id="@+id/EditText02"
 						android:layout_height="wrap_content" android:layout_width="wrap_content"
-						android:hint="(e.g. Fall)" />
+						android:hint="@string/egSem" />
 
 				</TableRow>
 				<TableRow android:id="@+id/TableRow03"
 					android:layout_width="wrap_content" android:layout_height="wrap_content">
 					<TextView android:id="@+id/TextView03"
 						android:layout_width="wrap_content" android:layout_height="wrap_content"
-						android:text="Year"></TextView>
+						android:text="@string/year"></TextView>
 					<EditText android:id="@+id/EditText03"
 						android:layout_width="wrap_content" android:layout_height="wrap_content"
-						android:hint="(e.g. 2010)"></EditText>
+						android:hint="@string/egYear"></EditText>
 
 
 				</TableRow>
@@ -54,7 +54,7 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content">
 					<TextView android:id="@+id/TextView04"
 						android:layout_width="wrap_content" android:layout_height="wrap_content"
-						android:text="Pic"></TextView>
+						android:text="@string/pic"></TextView>
 					<LinearLayout android:orientation="vertical"
 						android:layout_width="wrap_content" android:layout_height="wrap_content">
 						<ImageView android:id="@+id/ImageView01" android:src="@drawable/icon"
@@ -62,7 +62,7 @@
 							android:layout_height="wrap_content"></ImageView>
 						<TextView android:id="@+id/TextView04"
 							android:layout_width="wrap_content" android:layout_height="wrap_content"
-							android:text="Please choose a picture"></TextView>
+							android:text="@string/choosePic"></TextView>
 					</LinearLayout>
 				</TableRow>
 
@@ -72,11 +72,11 @@
 				android:id="@+id/relative" android:layout_height="wrap_content"
 				android:orientation="horizontal" android:layout_below="@id/TableLayout01">
 
-				<TextView android:text="Class Components" android:id="@+id/text1"
+				<TextView android:text="@string/classComponents" android:id="@+id/text1"
 					android:layout_alignParentLeft="true" android:layout_width="wrap_content"
 					android:layout_height="wrap_content" />
 
-				<TextView android:text="Percent of Class" android:id="@+id/text2"
+				<TextView android:text="@string/percentOfClass" android:id="@+id/text2"
 					android:gravity="right" android:layout_width="wrap_content"
 					android:layout_alignParentRight="true" android:layout_height="wrap_content" />
 
@@ -103,15 +103,15 @@
 
 				<Button android:id="@+id/Button3" android:layout_height="wrap_content"
 					android:layout_weight="1" android:gravity="center_horizontal"
-					android:text="ADD" android:layout_width="100dp" />
+					android:text="@string/add" android:layout_width="100dp" />
 
 				<Button android:id="@+id/Button01" android:layout_height="wrap_content"
 					android:layout_weight="1" android:gravity="center_horizontal"
-					android:text="OK" android:layout_width="100dp" />
+					android:text="@string/ok" android:layout_width="100dp" />
 
 				<Button android:id="@+id/Button02" android:layout_height="wrap_content"
 					android:layout_weight="1" android:gravity="center_horizontal"
-					android:text="Cancel" android:layout_width="100dp"
+					android:text="@string/cancel" android:layout_width="100dp"
 					android:layout_marginLeft="10dp" />
 			</LinearLayout>
 

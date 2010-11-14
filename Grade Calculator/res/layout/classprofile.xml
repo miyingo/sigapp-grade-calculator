@@ -14,7 +14,7 @@
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:orientation="vertical">
 
-			<TextView android:text="Class Name" android:id="@+id/TextView01"
+			<TextView android:text="@string/className" android:id="@+id/TextView01"
 				android:textSize="30dp" android:layout_width="wrap_content"
 				android:layout_height="wrap_content" />
 
@@ -23,7 +23,7 @@
 				android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:orientation="horizontal">
 
-				<TextView android:text="Grade: " android:id="@+id/TextView02"
+				<TextView android:text="@string/grade" android:id="@+id/TextView02"
 					android:textSize="20dp" android:layout_width="wrap_content"
 					android:layout_height="wrap_content" />
 

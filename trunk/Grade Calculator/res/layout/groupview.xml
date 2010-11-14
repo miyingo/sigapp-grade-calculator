@@ -9,7 +9,7 @@
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:paddingLeft="36dp" android:textColor="#C58917"></TextView>
 	<TextView android:text="@string/addGrade" android:id="@+id/TextView02" android:textSize="20dp" android:gravity="bottom"
-		android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="10dp"></TextView>
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="10dp" android:textColor="#C58917"></TextView>
   
   
 </LinearLayout>

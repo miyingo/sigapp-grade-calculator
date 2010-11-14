@@ -19,6 +19,9 @@
     <string name="gradeOutOf">Grade Out Of</string>
     <string name="className">Class Name</string>
     <string name="grade">Grade: </string>
+    <string name="egClass">(e.g. CS240)</string>
+    <string name="egSem">(e.g. Fall)</string>
+    <string name="egYear">(e.g. 2010)</string>
     
     
 </resources>

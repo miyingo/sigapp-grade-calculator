@@ -1,22 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-
-
+<?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView android:id="@+id/ScrollView01"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	>
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
-		
-		--><RelativeLayout android:gravity="center" android:id="@+id/LinearLayout01"
+
+<LinearLayout android:gravity="center" android:id="@+id/LinearLayout01"
 			android:orientation="vertical" android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			xmlns:android="http://schemas.android.com/apk/res/android">
+			android:layout_height="fill_parent">
 
 			<TableLayout android:id="@+id/TableLayout01"
 				android:layout_height="wrap_content" android:padding="10dp"
-				android:layout_width="300dp" android:layout_alignParentTop="true">
+				android:layout_width="300dp" >
 
 				<TableRow android:id="@+id/TableRow01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content">
@@ -85,9 +80,9 @@
 
 
 			<ListView android:id="@+id/list" android:layout_width="match_parent"
-				android:layout_height="wrap_content" android:background="#C58917"
+				android:layout_height="300dp" android:background="#C58917"
 				android:drawSelectorOnTop="false" android:scrollbars="vertical"
-				android:layout_below="@id/relative" android:layout_above="@+id/LinearLayout02" />
+				 />
 				
 			<!--
 
@@ -99,7 +94,7 @@
 			<LinearLayout android:id="@id/LinearLayout02"
 				android:gravity="center_horizontal" android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:layout_alignParentBottom="true">
+				>
 
 				<Button android:id="@+id/Button3" android:layout_height="wrap_content"
 					android:layout_weight="1" android:gravity="center_horizontal"
@@ -117,8 +112,6 @@
 
 
 
-		</RelativeLayout><!--
+		</LinearLayout>
 
-	</LinearLayout>
-
-</ScrollView>-->
+</ScrollView>

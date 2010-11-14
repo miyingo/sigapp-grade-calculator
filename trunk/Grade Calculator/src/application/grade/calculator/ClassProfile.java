@@ -265,7 +265,7 @@ public class ClassProfile extends Activity {
             cur.moveToPosition(groupPosition);
             
             text.setText(cur.getString(cur.getColumnIndex(Database.NAME)));
-            text1.setText(cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE))+"/"+cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF)));
+            text1.setText(""+cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE))+"/"+cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF)));
             return view;
         }
 

@@ -2,4 +2,23 @@
 <resources>
     <string name="hello">GradeCalculator!</string>
     <string name="app_name">Grade Calculator</string>
+    <string name="name">Name</string>
+    <string name="semester">Semester</string>
+    <string name="year">Year</string>
+    <string name="pic">Picture</string>
+    <string name="classComponents">Class Components</string>
+    <string name="percentOfClass">Percent of Class</string>
+    <string name="add">Add</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="addClass">Add Class</string>
+    <string name="addGrade">Add Grade</string>
+    <string name="choosePic">Please choose a picture</string>
+    <string name="componentName">Component Name</string>
+    <string name="gradeMade">Grade Made</string>
+    <string name="gradeOutOf">Grade Out Of</string>
+    <string name="className">Class Name</string>
+    <string name="grade">Grade: </string>
+    
+    
 </resources>

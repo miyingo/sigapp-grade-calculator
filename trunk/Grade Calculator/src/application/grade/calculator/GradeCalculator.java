@@ -89,7 +89,8 @@ public class GradeCalculator extends Activity {
 
         // This is our one standard application action -- inserting a
         // new note into the list.
-        menu.add(0, 1, 0, "Add Class")
+        String addClassButton = this.getResources().getString(R.string.addClass);
+        menu.add(0, 1, 0, addClassButton)
                 .setShortcut('3', 'a')
                 .setIcon(android.R.drawable.ic_menu_add);
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Grado Calculadora!</string>
+    <string name="app_name">Grado Calculadora</string>
+    <string name="name">Nombre</string>
+    <string name="semester">Semestre</string>
+    <string name="year">Año</string>
+    <string name="pic">Imagen</string>
+    <string name="classComponents">Componentes de la clase.</string>
+    <string name="percentOfClass">Porcentaje</string>
+    <string name="add">Añadir</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="addClass">Agregar Asunto</string>
+    <string name="addGrade">Añadir Grado</string>
+    <string name="choosePic">Por favor, elija una imagen.</string>
+    <string name="componentName">Nombre de componente</string>
+    <string name="gradeMade">Su puntuación</string>
+    <string name="gradeOutOf">máxima puntuación</string>
+    <string name="className">Nombre de clase</string>
+    <string name="grade">Grado: </string>
+    <string name="egClass">(por ejemplo, CS240) </string>
+    <string name="egSem"> (por ejemplo, otoño) </string>
+    <string name="egYear"> (por ejemplo, 2010) </string>
+        <string name="deleteClass">Eliminar Clase</string>
+        <string name="openMenu">Por favor, elija el botón de menú para añadir un tema.</string>   
+        <string name="deleteGrade">¿Quieres eliminar este grado?</string> 
+        <string name="no">No </string>
+        <string name="yes">Si </string>
+        <string name="chooseDeleteClass">Elija una clase para eliminar</string>
+        <string name="deleteClassDialog">¿Quieres eliminar este tema?</string>
+</resources>

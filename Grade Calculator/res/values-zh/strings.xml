@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">你好!</string>
+    <string name="app_name">成绩计算机</string>
+    <string name="name">名字</string>
+    <string name="semester">学期</string>
+    <string name="year">年</string>
+    <string name="pic">相片</string>
+    <string name="classComponents">学班组成</string>
+    <string name="percentOfClass">学班百分数</string>
+    <string name="add">加</string>
+    <string name="ok">好吧</string>
+    <string name="cancel">删除</string>
+    <string name="addClass">加学班</string>
+    <string name="addGrade">加成绩</string>
+    <string name="choosePic">选择相片</string>
+    <string name="componentName">组成名</string>
+    <string name="gradeMade">成绩</string>
+    <string name="gradeOutOf">总分</string>
+    <string name="className">学班名字</string>
+    <string name="grade">成绩: </string>
+    <string name="egClass">(e.g. CS240)</string>
+    <string name="egSem">(e.g. Fall)</string>
+    <string name="egYear">(e.g. 2010)</string>
+        <string name="deleteClass">删除学班</string>
+        <string name="openMenu">主页</string> 
+        <string name="deleteGrade">你要删除成绩吗？</string> 
+        <string name="no">不</string>
+        <string name="yes">是</string>
+        <string name="chooseDeleteClass">选择删除学班</string>
+        <string name="deleteClassDialog">你要删除学班吗？</string>
+        
+        
+          
+</resources>

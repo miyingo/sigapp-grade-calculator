@@ -143,7 +143,7 @@ public class ClassProfile extends Activity {
 				public void onClick(View v) {
 					
 					final Dialog dialog = new Dialog(ClassProfile.this);
-					dialog.setTitle("Add Grade");
+					dialog.setTitle(ClassProfile.this.getResources().getString(R.string.deleteGrade));
 					dialog.setCancelable(true);
 					dialog.setContentView(R.layout.deletegrade);
 					Button positive = (Button)dialog.findViewById(R.id.Button01);
@@ -226,7 +226,7 @@ public class ClassProfile extends Activity {
 					public void onClick(View v) {
 						
 						final Dialog dialog = new Dialog(ClassProfile.this);
-							dialog.setTitle("Add Grade");
+							dialog.setTitle(ClassProfile.this.getResources().getString(R.string.addGrade));
 							dialog.setCancelable(true);
 							dialog.setContentView(R.layout.addgrade);
 							final EditText text1 = (EditText)dialog.findViewById(R.id.EditText01);

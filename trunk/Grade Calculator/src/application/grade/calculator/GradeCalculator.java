@@ -11,13 +11,18 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import application.grade.calculator.adapters.HomeScreenAdapter;
@@ -48,11 +53,13 @@ public class GradeCalculator extends Activity {
        final Cursor cursor = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
        startManagingCursor(cursor); 
        
+  	 TextView v = (TextView)findViewById(R.id.text);
        if(cursor.moveToFirst()){
-    	 TextView v = (TextView)findViewById(R.id.text);
     	 v.setVisibility(View.INVISIBLE);
     	 v.setTextSize(0);
-       }
+       }else 
+    	   v.setTextSize(25f);
+       
        adapter = new HomeScreenAdapter(this,cursor);
         gridview.setAdapter(adapter);
         
@@ -124,7 +131,7 @@ public class GradeCalculator extends Activity {
         	startActivityForResult(i,  AddClass);
         	break;
         case 2:
-        	
+        	showDeleteClassDialog();
         	break;
         
         }
@@ -132,8 +139,86 @@ public class GradeCalculator extends Activity {
     }
     
     public void showDeleteClassDialog(){
-    	Dialog dialog = new Dialog(GradeCalculator.this);
+    	final Dialog dialog = new Dialog(GradeCalculator.this);
     	dialog.setCancelable(true);
+    	dialog.setContentView(R.layout.dialogdeleteclass);
+    	ListView list = (ListView) dialog.findViewById(R.id.ListView01);
+		Database data = new Database(GradeCalculator.this,GradeCalculator.this);
+		final SQLiteDatabase db = data.getWritableDatabase();
+		
+    	list.setAdapter(new BaseAdapter(){
+    		
+    		Cursor cur = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
+    		
+			public int getCount() {
+				// TODO Auto-generated method stub
+				if(!cur.moveToFirst())
+				return 0;
+				else
+					return cur.getCount();
+			}
+
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return position;
+			}
+
+			public View getView(int position, View convertView, ViewGroup parent) {
+				LayoutInflater inflater = (LayoutInflater)GradeCalculator.this.getLayoutInflater();
+        		View view = inflater.inflate(R.layout.deleteclasslitview, null);
+        		TextView text = (TextView)view.findViewById(R.id.text1);
+        		TextView text1 = (TextView)view.findViewById(R.id.text2);
+        		
+        		cur.moveToPosition(position);
+        		text.setText(cur.getString(cur.getColumnIndex(Database.NAME)));
+        		text1.setText(cur.getString(cur.getColumnIndex(Database.YEAR)));
+				
+        		return view;
+			}
+    		
+    		
+    	});
+    	
+    	list.setOnItemClickListener(new OnItemClickListener(){
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
+					long arg3) {
+
+				final Dialog dialog1 = new Dialog(GradeCalculator.this);
+				//dialog.setTitle(GradeCalculator.this.getResources().getString(R.string.deleteGrade));
+				dialog1.setCancelable(true);
+				dialog1.setContentView(R.layout.deletegrade);
+				Button positive = (Button)dialog1.findViewById(R.id.Button01);
+				Button negative = (Button)dialog1.findViewById(R.id.Button02);
+
+				positive.setOnClickListener(new OnClickListener(){
+
+					public void onClick(View v) {
+			    		Cursor cur = db.query(Database.CLASSES_TABLE, null, null, null, null, null, null);
+			    		cur.moveToPosition(arg2);
+						int id = cur.getInt(cur.getColumnIndex(Database._ID));
+						db.delete(Database.CLASSES_TABLE, Database._ID+" = "+id, null); 
+						GradeCalculator.this.onCreate(null);
+						dialog.dismiss();
+		                dialog1.dismiss();							
+					}
+				});
+				
+				negative.setOnClickListener(new OnClickListener(){
+					 public void onClick(View v) {
+			                dialog1.dismiss();
+						}
+				});
+				dialog1.show();
+			}
+    		
+    	});
+    	dialog.show();
     	
     	
     }

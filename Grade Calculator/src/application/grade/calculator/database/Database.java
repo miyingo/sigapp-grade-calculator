@@ -8,12 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.BaseAdapter;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 import application.grade.calculator.R;
 
 
 public class Database extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "GradeCalc.db";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 	
 	//Classes Table Columns
 	public static final String CLASSES_TABLE = "classes";
@@ -127,31 +128,36 @@ public class Database extends SQLiteOpenHelper {
 		
 	}
 	
-	public void updateCourseGrades(int position){
+	public float updateCourseGrades(int position){
 		
 		SQLiteDatabase db = getWritableDatabase();
 		Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" = "+position, null, null, null, null);
 		if(cur==null)
-			return ;
+			return 0;
 		float total = 0;
 		for(int i = 0;i<cur.getCount();i++){
 		cur.moveToPosition(i);
 		float made = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE));
 		float out_of = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF));
 		float weight = cur.getFloat(cur.getColumnIndex(Database.WEIGHT));
-		total = weight*(made/out_of);
+		float temp = weight*(made/out_of);
+		if(!(new Float(temp).equals(Float.NaN)))
+		total += temp;
 		}
 		ContentValues value = new ContentValues();
 		value.put(Database.TOTAL_GRADE, total);
 		db.update(Database.CLASSES_TABLE, value, Database._ID+" = "+position, null);
+		float temp = total*100f;
+		return  temp;
 	}
 	
-	public void updateComponentGrades(int position){
+	public String updateComponentGrades(int id){
 		
 		SQLiteDatabase db = getWritableDatabase();
-		Cursor cur = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+position, null, null, null, null);
-		if(cur==null)
-			return ;
+		Cursor cur = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
+		if(cur==null){
+			return "";
+		}
 		float total_made = 0;
 		float total_out_of = 0;
 		for(int i = 0;i<cur.getCount();i++){
@@ -164,7 +170,8 @@ public class Database extends SQLiteOpenHelper {
 		ContentValues value = new ContentValues();
 		value.put(Database.TOTAL_GRADE_MADE,total_made);
 		value.put(Database.TOTAL_GRADE_OUT_OF, total_out_of);
-		db.update(Database.COMPONENTS_TABLE, value, Database._ID+" = "+position, null);
+		db.update(Database.COMPONENTS_TABLE, value, Database._ID+" = "+id, null);
+		return String.format("%3.1f", (total_made/total_out_of)*100f);
 	}
 	
 	public BaseAdapter getClassesAdapter(){

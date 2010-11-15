@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<GridView 
-    android:id="@+id/gridview"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:columnWidth="90dp"
-    android:numColumns="auto_fit"
-    android:verticalSpacing="10dp"
-    android:horizontalSpacing="10dp"
-    android:stretchMode="columnWidth"
-    android:gravity="center"
-/>
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
-<TextView android:id="@id/android:empty"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:background="#FF0000"
-               android:text="No data"
-               android:textColor="#C58917"/>
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+		<ImageView android:id="@+id/ImageView01" android:src="@drawable/sigapp_icon"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+		<TextView android:text="@string/app_name" android:id="@+id/TextView01"
+			android:textSize="30dp" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+	</LinearLayout>
+	<view 
+		class="application.grade.calculator.GradeCalculator$LinedEditText"
+		android:id="@+id/note" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:background="@android:color/transparent"
+		android:padding="5dp" android:scrollbars="vertical"
+		android:fadingEdge="vertical" android:gravity="top" android:textSize="22sp"
+		android:capitalize="sentences" />
+		
+	<TextView android:id="@+id/text" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Please press the menu button to add a class"
+		android:textColor="#C58917" />
+
+	<GridView android:id="@+id/gridview" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:columnWidth="90dp"
+		android:numColumns="auto_fit" android:verticalSpacing="10dp"
+		android:horizontalSpacing="10dp" android:stretchMode="columnWidth"
+		android:gravity="center">
+
+	</GridView>
+
+	<TextView android:id="@id/android:empty" android:layout_width="match_parent"
+		android:layout_height="match_parent" android:background="#FF0000"
+		android:text="No data" android:textColor="#C58917" />
 </LinearLayout>

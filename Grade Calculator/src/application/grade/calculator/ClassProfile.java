@@ -1,13 +1,12 @@
 package application.grade.calculator;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +22,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import application.grade.calculator.adapters.GalleryAdapter;
 import application.grade.calculator.database.Database;
 
 public class ClassProfile extends Activity {
@@ -51,8 +51,19 @@ public class ClassProfile extends Activity {
         text.setText(class_name);
        
         //Display class grade
+        Database database = new Database(this,this);
+        SQLiteDatabase db = database.getWritableDatabase();
+        float gj = database.updateCourseGrades(class_id);
+        Cursor cur = db.query(Database.CLASSES_TABLE, null, Database._ID+" = "+class_id, null, null, null, null);
         TextView text1 = (TextView)findViewById(R.id.TextView03);
-                
+        text1.setText("0%");
+        if(cur.moveToFirst()){
+        float f = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE));
+        text1.setText(String.format("%3.1f", f));
+        }
+         
+        ((ImageView)findViewById(R.id.ImageView01)).setImageResource(GalleryAdapter.pic[cur.getInt(cur.getColumnIndex(Database.PIC))]);
+        
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(this,class_id);
         exlistview.setAdapter(mAdapter);
@@ -105,21 +116,14 @@ public class ClassProfile extends Activity {
             Database database = new Database(act,act);
             this.db = database.getWritableDatabase();
             Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" = "+class_id, null, null, null, null);
+
             this.act = act;
             this.class_id=class_id;
             act.startManagingCursor(cur);
             //act.startManagingCursor(gradeCursor);
     		this.cur = cur;    		
     	}
-    	
-        // Sample data set.  children[i] contains the children (String[]) for groups[i].
-        private String[] groups = { "People Names", "Dog Names", "Cat Names", "Fish Names" };
-        private String[][] children = {
-                { "Arnold", "Barry", "Chuck", "David" },
-                { "Ace", "Bandit", "Cha-Cha", "Deuce" },
-                { "Fluffy", "Snuggles" },
-                { "Goldy", "Bubbles" }
-        };
+
         public View getChild(int groupPosition, int childPosition) {
         	cur.moveToPosition(groupPosition);
         	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
@@ -180,8 +184,6 @@ public class ClassProfile extends Activity {
 
 					public void onClick(View v) {
 						
-						Toast.makeText(act, "made it", Toast.LENGTH_SHORT).show();
-						
 						final Dialog dialog = new Dialog(ClassProfile.this);
 							dialog.setTitle("Add Grade");
 							dialog.setCancelable(true);
@@ -216,7 +218,12 @@ public class ClassProfile extends Activity {
 									values.put(Database.GRADE_OUT_OF, out_of );
 									values.put(Database.COMPONENTS_ID,  cur.getInt(cur.getColumnIndex(Database._ID)));
 									int result = (int)db.insert(Database.GRADE_TABLE, null, values);
-									Toast.makeText(act, "made it to  with insert at "+result, Toast.LENGTH_LONG).show();
+									cur.requery();
+						            cur.moveToPosition(groupPosition);
+									data.updateComponentGrades(cur.getInt(cur.getColumnIndex(Database._ID)));
+									data.updateCourseGrades(class_id);
+									data.close();
+									ClassProfile.this.onCreate(null);
 						    		notifyDataSetChanged();
 									dialog.dismiss();
 								}
@@ -224,7 +231,6 @@ public class ClassProfile extends Activity {
 							
 							button1.setOnClickListener(new OnClickListener(){
 								public void onClick(View v) {
-									Toast.makeText(act, "last cancel", Toast.LENGTH_LONG).show();
 									dialog.dismiss();
 								}
 							});
@@ -263,9 +269,17 @@ public class ClassProfile extends Activity {
     		TextView text = (TextView)view.findViewById(R.id.TextView01);     
     		TextView text1 = (TextView)view.findViewById(R.id.TextView02);            
             cur.moveToPosition(groupPosition);
-            
+            Database database = new Database(ClassProfile.this,ClassProfile.this);
+            cur.moveToPosition(groupPosition);
+			database.updateComponentGrades(cur.getInt(cur.getColumnIndex(Database._ID)));
             text.setText(cur.getString(cur.getColumnIndex(Database.NAME)));
-            text1.setText(""+cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE))+"/"+cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF)));
+            Float k = cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_OUT_OF));
+            if(k!=0)
+            	k=cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE))/k;
+            else
+            	k=cur.getFloat(cur.getColumnIndex(Database.TOTAL_GRADE_MADE))*10000;
+            String f = String.format("%3.1f", k*100);
+            text1.setText(f+"%");
             return view;
         }
 

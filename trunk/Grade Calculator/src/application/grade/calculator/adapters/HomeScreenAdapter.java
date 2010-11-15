@@ -20,7 +20,17 @@ public class HomeScreenAdapter extends BaseAdapter {
 	Cursor cursor;
 	View view;
 	
-	int[] pic =  {R.drawable.books,R.drawable.felipecaparelli_gears_1, R.drawable.jean_victor_balin_book, R.drawable.johnny_automatic_roman_coliseum,R.drawable.organick_chemistry_set_9};
+	public static final int[] pic = { R.drawable.books,
+		R.drawable.felipecaparelli_gears_1,
+		R.drawable.jean_victor_balin_book,
+		R.drawable.johnny_automatic_roman_coliseum,
+		R.drawable.organick_chemistry_set_9,
+		R.drawable.books,
+		R.drawable.felipecaparelli_gears_1,
+		R.drawable.mcol_branching_tree,
+		R.drawable.parabola,
+		R.drawable.suitcase,
+		R.drawable.theresaknott_microscope};
 	
 	public HomeScreenAdapter(Activity ctx,Cursor cursor) {
 		this.ctx=ctx;

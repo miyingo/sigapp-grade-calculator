@@ -4,8 +4,9 @@
 	android:orientation="horizontal">
 
 	<EditText android:text="" android:id="@+id/text1"
-	    android:layout_alignParentLeft="true"
-		android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#C58917" />
+	    android:layout_alignParentLeft="true" 
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#C58917"
+		android:hint="New Class Component" />
 
 		
 	<EditText android:text="" android:id="@+id/text2"

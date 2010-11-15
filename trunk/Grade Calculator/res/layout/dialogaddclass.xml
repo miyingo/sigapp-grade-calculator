@@ -40,7 +40,7 @@
 						android:text="@string/year" android:textColor="#C58917"></TextView>
 					<EditText android:id="@+id/EditText03"
 						android:layout_width="wrap_content" android:layout_height="wrap_content"
-						android:hint="@string/egYear" android:textColor="#C58917"></EditText>
+						android:hint="@string/egYear" android:textColor="#C58917" android:inputType="number"></EditText>
 
 
 				</TableRow>
@@ -80,7 +80,7 @@
 
 
 			<ListView android:id="@+id/list" android:layout_width="match_parent"
-				android:layout_height="300dp" android:background="#C58917"
+				android:layout_height="200dp" android:background="#C58917"
 				android:drawSelectorOnTop="false" android:scrollbars="vertical"
 				 />
 				

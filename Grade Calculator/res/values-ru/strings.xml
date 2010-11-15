@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">калькулятор!</string>
+    <string name="app_name">калькулятор</string>
+    <string name="name">имя</string>
+    <string name="semester">семестр</string>
+    <string name="year">год</string>
+    <string name="pic">картинка</string>
+    <string name="classComponents">содержание класса</string>
+    <string name="percentOfClass">процент класса</string>
+    <string name="add">добавить</string>
+    <string name="ok">ок</string>
+    <string name="cancel">отменить</string>
+    <string name="addClass">добавить класс</string>
+    <string name="addGrade">добавить оценку</string>
+    <string name="choosePic"> пожалуйста выберите картинку</string>
+    <string name="componentName">состовляющее имя</string>
+    <string name="gradeMade">полученная отметка</string>
+    <string name="gradeOutOf">отметка из</string>
+    <string name="className">имя класса</string>
+    <string name="grade">отметка: </string>
+    <string name="egClass">(например 456)</string>
+    <string name="egSem">(напрмер Семестр)</string>
+    <string name="egYear">(например 2010)</string>
+        <string name="deleteClass">удалить тему</string>
+        <string name="openMenu">Если вы хотите добавить тему, пожалуйста, нажмите кнопку меню.</string> 
+        <string name="deleteGrade">Вы хотите удалить этот счет?</string> 
+        <string name="no">нет</string>
+        <string name="yes">да</string>
+        <string name="chooseDeleteClass">Выберите предмет, который вы хотите удалить.</string>
+        <string name="deleteClassDialog">Вы хотите удалить эту тему?</string>
+</resources>

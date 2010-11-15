@@ -1,6 +1,7 @@
 package application.grade.calculator;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -48,8 +49,9 @@ public class GradeCalculator extends Activity {
        startManagingCursor(cursor); 
        
        if(cursor.moveToFirst()){
-    	 TextView v =(TextView)findViewById(R.id.text);
+    	 TextView v = (TextView)findViewById(R.id.text);
     	 v.setVisibility(View.INVISIBLE);
+    	 v.setTextSize(0);
        }
        adapter = new HomeScreenAdapter(this,cursor);
         gridview.setAdapter(adapter);
@@ -101,6 +103,11 @@ public class GradeCalculator extends Activity {
         menu.add(0, 1, 0, addClassButton)
                 .setShortcut('3', 'a')
                 .setIcon(android.R.drawable.ic_menu_add);
+        
+        String deleteClassButton = this.getResources().getString(R.string.deleteClass);
+        menu.add(0, 2, 0, deleteClassButton)
+                .setShortcut('3', 'a')
+                .setIcon(android.R.drawable.ic_menu_delete);
 
         // Generate any additional actions that can be performed on the
         // overall list.  In a normal install, there are no additional
@@ -114,10 +121,21 @@ public class GradeCalculator extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
         case 1: Intent i = new Intent(getBaseContext(),AddClassActivity.class);
-        startActivityForResult(i,  AddClass);
+        	startActivityForResult(i,  AddClass);
+        	break;
+        case 2:
+        	
+        	break;
         
         }
         return true;
+    }
+    
+    public void showDeleteClassDialog(){
+    	Dialog dialog = new Dialog(GradeCalculator.this);
+    	dialog.setCancelable(true);
+    	
+    	
     }
     
     public static class LinedEditText extends EditText {

@@ -16,7 +16,7 @@
 
 			<TextView android:text="@string/className" android:id="@+id/TextView01"
 				android:textSize="30dp" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:textColor="#C58917" />
+				android:layout_height="wrap_content" android:textColor="#937E3B" />
 
 
 			<LinearLayout android:id="@+id/LinearLayout03"
@@ -25,11 +25,11 @@
 
 				<TextView android:text="@string/grade" android:id="@+id/TextView02"
 					android:textSize="20dp" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:textColor="#C58917"/>
+					android:layout_height="wrap_content" android:textColor="#937E3B"/>
 
 				<TextView android:text="75%" android:id="@+id/TextView03"
 					android:textSize="20dp" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:textColor="#C58917"/>
+					android:layout_height="wrap_content" android:textColor="#937E3B"/>
 
 			</LinearLayout>
 

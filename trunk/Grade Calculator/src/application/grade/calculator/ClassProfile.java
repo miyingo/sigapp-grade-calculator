@@ -3,10 +3,10 @@ package application.grade.calculator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,7 +21,6 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import application.grade.calculator.adapters.GalleryAdapter;
 import application.grade.calculator.database.Database;
 
@@ -126,8 +125,8 @@ public class ClassProfile extends Activity {
 
         public View getChild(int groupPosition, int childPosition) {
         	cur.moveToPosition(groupPosition);
-        	int  id = cur.getInt(cur.getColumnIndex(Database._ID));
-        	Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
+        	final int  id = cur.getInt(cur.getColumnIndex(Database._ID));
+        	final Cursor gradeCursor = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
         	act.startManagingCursor(gradeCursor);
         	gradeCursor.moveToPosition(childPosition);
         	
@@ -136,11 +135,53 @@ public class ClassProfile extends Activity {
     		TextView text = (TextView)view.findViewById(R.id.TextView03);
     		TextView text1 = (TextView)view.findViewById(R.id.TextView01);
     		TextView text2 = (TextView)view.findViewById(R.id.TextView02);
-        	
-    		text.setText(gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME)));
-    		text1.setText(gradeCursor.getString(gradeCursor.getColumnIndex(Database.GRADE_MADE)));
-    		text2.setText(gradeCursor.getString(gradeCursor.getColumnIndex(Database.GRADE_OUT_OF)));
+    		ImageView image = (ImageView)view.findViewById(R.id.ImageView01);
+    		
+    		final int grade_id = gradeCursor.getInt(cur.getColumnIndex(Database._ID));
+    		image.setOnClickListener(new OnClickListener(){
 
+				public void onClick(View v) {
+					
+					final Dialog dialog = new Dialog(ClassProfile.this);
+					dialog.setTitle("Add Grade");
+					dialog.setCancelable(true);
+					dialog.setContentView(R.layout.deletegrade);
+					Button positive = (Button)dialog.findViewById(R.id.Button01);
+					Button negative = (Button)dialog.findViewById(R.id.Button02);
+
+					positive.setOnClickListener(new OnClickListener(){
+
+						public void onClick(View v) {
+							Database data = new Database(ClassProfile.this,ClassProfile.this);
+							db.delete(Database.GRADE_TABLE, Database._ID+" = "+grade_id, null); 
+							data.updateComponentGrades(id);
+							data.updateCourseGrades(class_id);
+							data.close();
+							cur.requery();
+							gradeCursor.requery();
+							notifyDataSetChanged();
+							ClassProfile.this.onCreate(null);
+				    		notifyDataSetChanged();
+			                dialog.dismiss();							
+						}
+					});
+					
+					negative.setOnClickListener(new OnClickListener(){
+						 public void onClick(View v) {
+				                dialog.dismiss();
+							}
+					});
+					dialog.show();
+					          
+				}
+    		});
+    		Float made = gradeCursor.getFloat(gradeCursor.getColumnIndex(Database.GRADE_MADE));
+        	Float out_of = gradeCursor.getFloat(gradeCursor.getColumnIndex(Database.GRADE_OUT_OF));
+    		text.setText(gradeCursor.getString(gradeCursor.getColumnIndex(Database.NAME)));
+    		text2.setText(""+made);
+    		if(!new Float(made/out_of).equals(Float.NaN))
+    		text2.setText(String.format("%3.1f",new Float((made/out_of)*100))+"%");
+    		text1.setText(made+"/"+out_of);
             return view;
         }
 

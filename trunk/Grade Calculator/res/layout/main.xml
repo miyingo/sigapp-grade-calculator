@@ -21,9 +21,9 @@
 		android:fadingEdge="vertical" android:gravity="top" android:textSize="22sp"
 		android:capitalize="sentences" />
 		
-	<TextView android:id="@+id/text" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:text="Please press the menu button to add a class"
-		android:textColor="#C58917" />
+	<TextView android:id="@+id/text" android:layout_width="wrap_content" android:textSize="20dp"
+		android:layout_height="wrap_content" android:text="@string/openMenu"
+		android:textColor="#937E3B" />
 
 	<GridView android:id="@+id/gridview" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:columnWidth="90dp"
@@ -35,5 +35,5 @@
 
 	<TextView android:id="@id/android:empty" android:layout_width="match_parent"
 		android:layout_height="match_parent" android:background="#FF0000"
-		android:text="No data" android:textColor="#C58917" />
+		android:text="No data" android:textColor="#937E3B" />
 </LinearLayout>

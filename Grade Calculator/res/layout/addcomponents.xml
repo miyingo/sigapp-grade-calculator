@@ -6,7 +6,7 @@
 	<LinearLayout android:id="@+id/LinearLayout02"
 		android:layout_width="wrap_content" android:layout_height="wrap_content">
 		<TextView android:text="@+id/TextView01" android:id="@+id/TextView01"
-			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#C58917"></TextView>
+			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#937E3B"></TextView>
 	</LinearLayout>
 	<ListView android:id="@+id/ListView01" android:layout_width="wrap_content"
 		android:layout_height="wrap_content">

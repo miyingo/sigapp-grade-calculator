@@ -37,16 +37,17 @@ public class AddClassActivity extends Activity {
 	ImageView image;
 	static final int DIALOG_PICK_PIC = 0;
 	int picture = 2;
+	
 	public static final int[] pic = { R.drawable.books,
-			R.drawable.jean_victor_balin_book,
-			R.drawable.johnny_automatic_roman_coliseum,
-			R.drawable.organick_chemistry_set_9,
-			R.drawable.books,
-			R.drawable.felipecaparelli_gears_1,
-			R.drawable.mcol_branching_tree,
-			R.drawable.parabola,
-			R.drawable.suitcase,
-			R.drawable.theresaknott_microscope};
+		R.drawable.jean_victor_balin_book,
+		R.drawable.johnny_automatic_roman_coliseum,
+		R.drawable.organick_chemistry_set_9,
+		R.drawable.felipecaparelli_gears_1,
+		R.drawable.mcol_branching_tree,
+		R.drawable.parabola,
+		R.drawable.suitcase,
+		R.drawable.theresaknott_microscope};
+	
 	GalleryAdapter adapter1;
 
 	@Override

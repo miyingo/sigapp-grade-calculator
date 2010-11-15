@@ -21,7 +21,7 @@
     android:layout_height="wrap_content"
     android:padding="2dp"
     android:textSize="20sp"
-    android:textColor="#C58917"
+    android:textColor="#937E3B"
      />
 <TextView 
 	android:id="@+id/text2"
@@ -29,7 +29,7 @@
     android:layout_height="wrap_content"
     android:padding="2dp"
     android:textSize="20sp"
-    android:textColor="#C58917"
+    android:textColor="#937E3B"
     />
   </LinearLayout>
 </LinearLayout>

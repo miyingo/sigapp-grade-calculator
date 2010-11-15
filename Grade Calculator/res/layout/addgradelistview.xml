@@ -5,7 +5,8 @@
 
 	<ImageView android:id="@+id/ImageView01" android:src="@drawable/android:ic_input_add"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="36dp" android:scaleType="fitXY"/>
+		
 	<TextView android:text="@string/addGrade" android:id="@+id/TextView01" android:textSize="25dp" android:gravity="bottom"
-		android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#C58917"></TextView>
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#937E3B"></TextView>
 
 </LinearLayout>

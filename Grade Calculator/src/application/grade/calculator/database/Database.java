@@ -132,8 +132,12 @@ public class Database extends SQLiteOpenHelper {
 		
 		SQLiteDatabase db = getWritableDatabase();
 		Cursor cur = db.query(Database.COMPONENTS_TABLE, null, Database.CLASS_ID+" = "+position, null, null, null, null);
-		if(cur==null)
+		if(cur==null){
+			ContentValues value = new ContentValues();
+			value.put(Database.TOTAL_GRADE, 0);
+			db.update(Database.CLASSES_TABLE, value, Database._ID+" = "+position, null);
 			return 0;
+		}
 		float total = 0;
 		for(int i = 0;i<cur.getCount();i++){
 		cur.moveToPosition(i);
@@ -155,7 +159,11 @@ public class Database extends SQLiteOpenHelper {
 		
 		SQLiteDatabase db = getWritableDatabase();
 		Cursor cur = db.query(Database.GRADE_TABLE, null, Database.COMPONENTS_ID+" = "+id, null, null, null, null);
-		if(cur==null){
+		if(!cur.moveToFirst()){
+			ContentValues value = new ContentValues();
+			value.put(Database.TOTAL_GRADE_MADE,0);
+			value.put(Database.TOTAL_GRADE_OUT_OF, 0);
+			db.update(Database.COMPONENTS_TABLE, value, Database._ID+" = "+id, null);
 			return "";
 		}
 		float total_made = 0;

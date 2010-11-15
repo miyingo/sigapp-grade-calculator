@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
@@ -7,9 +7,10 @@
   
   	<TextView android:id="@+id/TextView01" android:textSize="30dp" android:gravity="bottom"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:paddingLeft="36dp" android:textColor="#C58917"></TextView>
+		android:paddingLeft="36dp" android:textColor="#937E3B"/>
 	<TextView android:text="@string/addGrade" android:id="@+id/TextView02" android:textSize="20dp" android:gravity="bottom"
-		android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="10dp" android:textColor="#C58917"></TextView>
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="10dp" android:textColor="#937E3B" android:layout_alignParentRight="true"
+		android:layout_alignBaseline="@id/TextView01"/>
   
   
-</LinearLayout>
+</RelativeLayout>
